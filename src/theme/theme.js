@@ -4,6 +4,7 @@ export function setTheme(themeName) {
   const name = themes[themeName] ? themeName : DEFAULT_THEME;
   document.documentElement.setAttribute("data-theme", name);
   localStorage.setItem("theme", name);
+  window.dispatchEvent(new CustomEvent("theme:changed", { detail: { theme: name } }));
   return name;
 }
 

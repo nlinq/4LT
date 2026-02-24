@@ -1,4 +1,5 @@
 import { companyConfig } from "./config/companyConfig.js";
+import { getAssetsForTheme } from "./config/brandAssets.js";
 import { initTheme, setTheme } from "./theme/theme.js";
 
 function fillText(selector, value) {
@@ -40,6 +41,19 @@ function applyCompanyConfig() {
   fillAttr("a[data-company-email-link]", "href", `mailto:${companyConfig.companyEmail}`);
 }
 
+
+function applyBrandAssets(themeName) {
+  const theme = themeName || document.documentElement.getAttribute("data-theme") || "default";
+  const assets = getAssetsForTheme(theme);
+
+  // Logos
+  fillAttr("img[data-company-logo]", "src", assets.logo);
+  fillAttr("img[data-company-footer-logo]", "src", assets.footerLogo);
+
+  // Background image variable for CSS (optional usage)
+  document.documentElement.style.setProperty("--img-site-bg", `url('${assets.siteBackground}')`);
+}
+
 function exposeThemeAPI() {
   // Optional: allow manual theme changes from console or custom UI later
   window.setSiteTheme = setTheme;
@@ -50,5 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initTheme();
   replacePlaceholdersInHead();
   applyCompanyConfig();
+  applyBrandAssets();
+  window.addEventListener("theme:changed", (e) => applyBrandAssets(e.detail?.theme));
   exposeThemeAPI();
 });

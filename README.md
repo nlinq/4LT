@@ -1,4 +1,4 @@
-# Nlinq Solutions Website (React + Vite)
+# Four LT Solutions Website (React + Vite)
 
 This project is a React conversion of the original static website template.
 The UI/CSS/JS assets are preserved so the site looks the same.

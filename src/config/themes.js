@@ -31,4 +31,4 @@ export const themes = {
   },
 };
 
-export const DEFAULT_THEME = "default";
+export const DEFAULT_THEME = "ocean";
